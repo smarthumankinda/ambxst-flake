@@ -31,7 +31,16 @@
       packages.ambxst = pkgs.symlinkJoin {
         pname = "ambxst";
         version = "0.1.0"; 
-        paths = [ quickshellPkg ]; 
+        paths = [
+          quickshellPkg
+          pkgs.tesseract
+          pkgs.power-profiles-daemon
+          pkgs.brightnessctl
+          pkgs.matugen
+          pkgs.pipewire
+          pkgs.wlsunset
+          pkgs.upower
+        ]; 
 
         nativeBuildInputs = [ pkgs.makeWrapper ];
 
