@@ -2,7 +2,7 @@
 
 {
   perSystem = {pkgs, ...}: {
-    packages.phosphor = pkgs.stdenvNoCC.mkDerivation rec {
+    packages.phosphor-icons = pkgs.stdenvNoCC.mkDerivation rec {
       pname = "ttf-phosphor-icons";
       version = "2.1.2";
 

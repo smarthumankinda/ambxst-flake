@@ -7,7 +7,7 @@
 
       fontconfig = pkgs.makeFontsConf {
         fontDirectories = [
-          self'.packages.phosphor
+          self'.packages.phosphor-icons
         ];
       };
 
