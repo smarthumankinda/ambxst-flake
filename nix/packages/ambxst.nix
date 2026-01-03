@@ -1,13 +1,30 @@
-# Though i didn't copy the code directly the code's structure is heavily inspired from rexi's kurukuru bar https://github.com/Rexcrazy804/Zaphkiel/blob/master/pkgs/kurukurubar.nix
+# Though i didn't copy the code directly the code's structure and var namees are heavily inspired from rexi's kurukuru bar https://github.com/Rexcrazy804/Zaphkiel/blob/master/pkgs/kurukurubar.nix
 
 { inputs, ... }: {
   perSystem = { pkgs, lib, self', inputs', ... }: 
     let
       quickshellPkg = inputs'.quickshell.packages.default;
+      qt6 = pkgs.kdePackages;
 
       fontconfig = pkgs.makeFontsConf {
         fontDirectories = [
           self'.packages.phosphor-icons
+          pkgs.roboto
+          pkgs.roboto-mono
+          pkgs.league-gothic
+          pkgs.terminus_font
+          pkgs.terminus_font_ttf
+          pkgs.dejavu_fonts
+          pkgs.liberation_ttf
+
+          pkgs.# Nerd Fonts
+          pkgs.nerd-fonts.symbols-only
+
+          pkgs.# Noto family
+          pkgs.noto-fonts
+          pkgs.noto-fonts-color-emoji
+          pkgs.noto-fonts-cjk-sans
+          pkgs.noto-fonts-cjk-serif
         ];
       };
 
@@ -21,15 +38,14 @@
       };
 
       qmlPath = lib.makeSearchPath "lib/qt-6/qml" [
-        pkgs.kdePackages.qtbase
-        pkgs.kdePackages.qtdeclarative
-        pkgs.kdePackages.qtmultimedia
-        pkgs.kdePackages.syntax-highlighting
+        qt6.qtbase
+        qt6.qtdeclarative
+        qt6.syntax-highlighting
+        qt6.qtmultimedia 
       ];
-
     in {
       packages.ambxst = pkgs.symlinkJoin {
-        pname = "ambxst";
+        pname = "ambxst-shell";
         version = "0.1.0"; 
         paths = [
           quickshellPkg
@@ -37,15 +53,38 @@
           pkgs.power-profiles-daemon
           pkgs.brightnessctl
           pkgs.matugen
-          pkgs.pipewire
-          pkgs.wlsunset
           pkgs.upower
+          pkgs.jq                            
+          pkgs.procps                        
+          pkgs.libnotify                     
+          pkgs.gpu-screen-recorder
+          pkgs.grim
+          pkgs.easyeffects
+          pkgs.blueman
+          pkgs.mpvpaper
+          pkgs.pwvucontrol
+          pkgs.wl-clip-persist
+          pkgs.wl-clipboard
+          pkgs.wlsunset
+          pkgs.wtype
+          pkgs.tmux
+          pkgs.imagemagick
+          pkgs.slurp
+          pkgs.zbar
+          pkgs.sqlite
+          pkgs.x264
+          pkgs.ffmpeg
+          pkgs.playerctl
+          pkgs.pipewire
+          pkgs.wireplumber
+          pkgs.ddcutil
+          qt6.qtmultimedia
         ]; 
 
         nativeBuildInputs = [ pkgs.makeWrapper ];
 
         postBuild = ''
-          makeWrapper ${lib.getExe quickshellPkg} $out/bin/ambxst \
+          makeWrapper ${lib.getExe quickshellPkg} $out/bin/ambxst-shell \
             --set FONTCONFIG_FILE "${fontconfig}" \
             --set QML2_IMPORT_PATH "${qmlPath}" \
             --add-flags "-p ${qsConfig}" \
@@ -53,9 +92,8 @@
           rm $out/bin/quickshell
         '';
 
-        meta.mainProgram = "ambxst";
+        meta.mainProgram = "ambxst-shell";
       };
-
       packages.default = self'.packages.ambxst;
     };
 }
