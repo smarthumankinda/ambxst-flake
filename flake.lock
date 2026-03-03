@@ -3,11 +3,11 @@
     "ambxst": {
       "flake": false,
       "locked": {
-        "lastModified": 1770628003,
-        "narHash": "sha256-f/kCjT0OaSLytDWGuhIGfsU07X5yAweYVl8DtsjyOeY=",
+        "lastModified": 1771072201,
+        "narHash": "sha256-SONu9NiNr0gaLC6rMt3x5x1L6DwSUuGJesizS7Ej2eo=",
         "owner": "axenide",
         "repo": "ambxst",
-        "rev": "f4297a82c5b37be2b7fb5ee4fb5d7ee814f9f1fc",
+        "rev": "59edec9a0430eb2f679697f4a817a1f44ffcfb8b",
         "type": "github"
       },
       "original": {
